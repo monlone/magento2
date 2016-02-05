@@ -23,22 +23,71 @@
 
 namespace UOL\PagSeguro\Helper;
 
-
+/**
+ * Class Library
+ * @package UOL\PagSeguro\Helper
+ */
 class Library
 {
 
+    /**
+     *
+     */
     const LIBRARY_AUTOLOAD = BP.'/app/code/UOL/PagSeguro/vendor/autoload.php';
-    const STANDARD_URL = "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js";
-    const SANDBOX_URL = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js";
+    /**
+     *
+     */
+    const STANDARD_JS = "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js";
+    /**
+     *
+     */
+    const SANDBOX_JS = "https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js";
 
-    public function __construct()
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $_scopeConfig;
+
+    /**
+     * Library constructor.
+     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface
+     */
+    public function __construct(
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface
+    ){
+        $this->loader();
+        $this->_scopeConfig = $scopeConfigInterface;
+    }
+
+    /**
+     * Get the access credential
+     * @return PagSeguroAccountCredentials
+     */
+    public function getPagSeguroCredentials()
+    {
+        $email = $this->_scopeConfig->getValue('payment/pagseguro/email');
+        $token = $this->_scopeConfig->getValue('payment/pagseguro/token');
+        return new \PagSeguroAccountCredentials($email, $token);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLightboxCheckoutType()
+    {
+        if ($this->_scopeConfig->getValue('payment/pagseguro/checkout')
+            == \UOL\PagSeguro\Model\System\Config\Checkout::LIGHTBOX) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Load library vendor
+     */
+    private function loader()
     {
         require_once(self::LIBRARY_AUTOLOAD);
         \PagSeguroLibrary::init();
-    }
-
-    public function getEnvironment()
-    {
-        return \PagSeguroConfig::getEnvironment();
     }
 }

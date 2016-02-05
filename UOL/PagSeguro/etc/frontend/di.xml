@@ -26,7 +26,7 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="ppagseguro_payment_config_provider" xsi:type="object">UOL\PagSeguro\Model\PaymentConfigProvider</item>
+                <item name="pagseguro_payment_config_provider" xsi:type="object">UOL\PagSeguro\Model\PaymentConfigProvider</item>
               </argument>
         </arguments>
     </type>

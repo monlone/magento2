@@ -63,13 +63,9 @@ define(
                 })).done(function () {
                         $.when(placeOrder(paymentData, messageContainer)).done(function () {
                             if (window.checkoutConfig.payment.pagseguro.isLightbox) {
-                                $.mage.redirect(
-                                    window.checkoutConfig.payment.pagseguro.base_url +
-                                    "code/" +
-                                    window.checkoutConfig.payment.pagseguro.paymentRequestURL
-                                );
+                                $.mage.redirect(window.checkoutConfig.payment.pagseguro.checkout.lightbox);
                             } else {
-                                $.mage.redirect(window.checkoutConfig.payment.pagseguro.paymentRequestURL);
+                                $.mage.redirect(window.checkoutConfig.payment.pagseguro.checkout.standard);
                             }
                         });
                 }).fail(function () {

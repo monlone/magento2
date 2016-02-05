@@ -45,13 +45,9 @@ class PaymentConfigProvider implements \Magento\Checkout\Model\ConfigProviderInt
     /**
      * PaymentConfigProvider constructor.
      * @param PaymentHelper $helper
-     * @param \Magento\Sales\Model\OrderFactory $orderFactory
-     * @param \Magento\Catalog\Model\ProductFactory $productFactory
      */
     public function __construct(
-        PaymentHelper $helper,
-        \Magento\Sales\Model\OrderFactory $orderFactory,
-        \Magento\Catalog\Model\ProductFactory $productFactory
+        PaymentHelper $helper
     ){
         $this->method = $helper->getMethodInstance(self::PAYMENT_METHOD_PAGSEGURO_CODE);
     }
@@ -64,32 +60,14 @@ class PaymentConfigProvider implements \Magento\Checkout\Model\ConfigProviderInt
         $config = [
             'payment' => [
                 self::PAYMENT_METHOD_PAGSEGURO_CODE => [
-                    'paymentRequestURL' => $this->getCheckoutRedirectUrl(),
-                    'isLightbox' => $this->getCheckoutType(),
-                    'base_url' => $this->getBaseUrl()
+                    'isLightbox' => $this->method->isLightboxCheckoutType(),
+                    'checkout' => [
+                        'lightbox' => $this->method->getLightboxCheckoutPaymentUrl(),
+                        'standard' => $this->method->getStandardCheckoutPaymentUrl()
+                    ]
                 ]
             ]
         ];
         return $config;
     }
-
-    /**
-     * Obtain the payment URL to redirect customer.
-     * @return url
-     */
-    public function getCheckoutRedirectUrl()
-    {
-        return $this->method->paymentRequest();
-    }
-
-    public function getCheckoutType()
-    {
-        return $this->method->_isLightboxCheckoutType();
-    }
-
-    private function getBaseUrl()
-    {
-        return $this->method->getCheckoutPaymentUrl();
-    }
-
 }

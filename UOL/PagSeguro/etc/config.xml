@@ -29,6 +29,7 @@
                 <title>PagSeguro</title>
                 <active>0</active>
                 <model>UOL\PagSeguro\Model\Payment</model>
+                <order_status>pagseguro_iniciado</order_status>
             </pagseguro>
         </payment>
     </default>

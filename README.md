@@ -9,6 +9,9 @@ Essa versão não pode ser utilizada em produção.
 
 Changelog
 ---------
+0.0.2-alpha
+- Integração com API de notificação.
+- Configuração do Setup do módulo.
 
 0.0.1-alpha
 - Adicionado meio de pagamento ao Magento2

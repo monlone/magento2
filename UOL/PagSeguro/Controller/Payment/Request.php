@@ -23,38 +23,27 @@
 
 namespace UOL\PagSeguro\Controller\Payment;
 
-use UOL\PagSeguro\Model\PaymentMethod;
+USE UOL\PagSeguro\Model\PaymentMethod;
 
 /**
  * Class Checkout
  * @package UOL\PagSeguro\Controller\Payment
  */
-/**
- * Class Checkout
- * @package UOL\PagSeguro\Controller\Payment
- */
-class Checkout extends \Magento\Framework\App\Action\Action {
-
-    /** @var  \Magento\Framework\View\Result\Page */
-    protected $resultPageFactory;
+class Request extends \Magento\Framework\App\Action\Action {
 
     /**
      * @var \UOL\PagSeguro\Model\PaymentMethod
      */
-    protected $_payment;
-
+    private $_payment;
 
     /**
-     * Checkout constructor.
+     * Request constructor.
      * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
+        \Magento\Framework\App\Action\Context $context
     ){
         parent::__construct($context);
-        $this->resultPageFactory = $resultPageFactory;
         $this->_payment = new PaymentMethod(
             $this->_objectManager->create('\Magento\Framework\App\Config\ScopeConfigInterface'),
             $this->_objectManager->create('\Magento\Checkout\Model\Session')
@@ -62,29 +51,11 @@ class Checkout extends \Magento\Framework\App\Action\Action {
     }
 
     /**
-     * Show payment page
+     * Redirect to payment
      * @return \Magento\Framework\View\Result\PageFactory
      */
     public function execute()
     {
-        $code = $this->_payment->createPaymentRequest();
-        $resultPage = $this->resultPageFactory->create();
-        $resultPage->getLayout()->getBlock('pagseguro.payment.checkout')->setCode($code);
-        $resultPage->getLayout()->getBlock('pagseguro.payment.checkout')->setPaymentJs($this->getPagSeguroPaymentJs());
-        $resultPage->getLayout()->getBlock('pagseguro.payment.checkout')->setPaymentUrl($this->_payment->checkoutUrl($code, 'paymentService'));
-        return $resultPage;
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    private function getPagSeguroPaymentJs()
-    {
-        if (\PagSeguroConfig::getEnvironment() == 'sandbox'){
-            return \UOL\PagSeguro\Helper\Library::SANDBOX_JS;
-        } else {
-            return \UOL\PagSeguro\Helper\Library::STANDARD_JS;
-        }
+        return $this->resultRedirectFactory->create()->setPath($this->_payment->createPaymentRequest());
     }
 }
