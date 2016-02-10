@@ -32,15 +32,15 @@ class NotificationMethod
     /**
      * @var \UOL\PagSeguro\Helper\Library
      */
-    private $_library;
+    private $library;
     /**
      * @var \UOL\PagSeguro\Helper\Data
      */
-    private $_data;
+    private $data;
     /**
      * @var \Magento\Sales\Api\OrderRepositoryInterface
      */
-    private $_order;
+    private $order;
 
     /**
      * Notification constructor.
@@ -58,9 +58,9 @@ class NotificationMethod
             $scopeConfigInterface,
             $session
         );
-        $this->_data = new Data();
-        $this->_order = $order;
-        $this->_history = $history;
+        $this->data = new Data();
+        $this->order = $order;
+        $this->history = $history;
     }
 
     /**
@@ -79,20 +79,20 @@ class NotificationMethod
     private function updateOrderStatus($payload)
     {
         $transaction = $this->getTransaction($payload['code']);
-        $order = $this->_order->get(
-            $this->_data->getReferenceDecryptOrderID(
+        $order = $this->order->get(
+            $this->data->getReferenceDecryptOrderID(
                 $transaction->getReference()
             )
         );
 
-        $status = $this->_data->getStatusFromKey(
+        $status = $this->data->getStatusFromKey(
             $transaction->getStatus()->getValue()
         );
 
         if (!$this->compareStatus($status,$order->getStatus())){
             $history = array (
-                'status'=>$this->_history->setStatus($status),
-                'comment'=>$this->_history->setComment('PagSeguro Notification')
+                'status'=>$this->history->setStatus($status),
+                'comment'=>$this->history->setComment('PagSeguro Notification')
             );
             $order->setStatus($status);
             $order->setStatusHistories($history);
@@ -139,8 +139,7 @@ class NotificationMethod
     {
         if ($pagseguro == $magento) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }

@@ -46,27 +46,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     /**
      * @var bool
      */
-    protected $_canAuthorize = true;
-    /**
-     * @var bool
-     */
     protected $_canCapture = true;
-    /**
-     * @var bool
-     */
-    protected $_canCapturePartial = false;
-    /**
-     * @var bool
-     */
-    protected $_canRefund = false;
-    /**
-     * @var bool
-     */
-    protected $_canVoid = true;
-    /**
-     * @var bool
-     */
-    protected $_canUseInternal = true;
     /**
      * @var bool
      */
@@ -79,7 +59,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     /**
      * @var \Magento\Checkout\Model\Cart
      */
-    private $_cart;
+    private $cart;
 
     /**
      * Payment constructor.
@@ -101,8 +81,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         \Magento\Payment\Helper\Data $paymentData,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Payment\Model\Method\Logger $logger,
-        \Magento\Checkout\Model\Cart $cart,
-        \UOL\PagSeguro\Helper\Library $helper
+        \Magento\Checkout\Model\Cart $cart
     ) {
 
         parent::__construct(
@@ -114,11 +93,8 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
             $scopeConfig,
             $logger
         );
-
-        $this->_cart = $cart;
-
+        $this->cart = $cart;
     }
-
 
     /**
      * @return bool
@@ -136,7 +112,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getLightboxCheckoutPaymentUrl()
     {
-        return $this->_cart->getQuote()->getStore()->getUrl("pagseguro/payment/checkout/");
+        return $this->cart->getQuote()->getStore()->getUrl("pagseguro/payment/checkout/");
     }
 
     /**
@@ -144,7 +120,7 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getStandardCheckoutPaymentUrl()
     {
-        return $this->_cart->getQuote()->getStore()->getUrl("pagseguro/payment/request/");
+        return $this->cart->getQuote()->getStore()->getUrl("pagseguro/payment/request/");
     }
 
 }

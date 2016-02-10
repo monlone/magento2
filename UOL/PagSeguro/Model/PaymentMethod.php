@@ -136,17 +136,15 @@ class PaymentMethod
      * @param bool $shipping
      * @return array|null
      */
-    private function getShippingAddress($address, $shipping = false)
+    private function getShippingAddress($address, $shipping = null)
     {
         if (!is_null($address) or !empty($adress)) {
             return $address;
-        } else {
-            if ($shipping) {
-                return \UOL\PagSeguro\Helper\Data::addressConfig($shipping['street']);
-            } else {
-                return null;
-            }
         }
+        if ($shipping) {
+            return \UOL\PagSeguro\Helper\Data::addressConfig($shipping['street']);
+        }
+        return null;
     }
 
     /**
@@ -155,12 +153,10 @@ class PaymentMethod
      */
     private function getShippingData()
     {
-
         if ($this->_checkoutSession->getLastRealOrder()->getIsVirtual()) {
             return $this->_checkoutSession->getLastRealOrder()->getBillingAddress();
-        } else {
-            return $this->_checkoutSession->getLastRealOrder()->getShippingAddress();
         }
+        return $this->_checkoutSession->getLastRealOrder()->getShippingAddress();
     }
 
     /**
