@@ -8,4 +8,5 @@ before_script:
 - phpenv rehash
 script:
 - php -d error_reporting="E_ALL & ~E_WARNING" UOL/*
+- phpcs --config-set show_warnings 0
 - phpcs --extensions=php -p --standard=PSR2 ./
