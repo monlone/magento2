@@ -1,0 +1,10 @@
+language: php
+php:
+- '7'
+- '5.6'
+- '5.5'
+before_script:
+- pear install --alldeps pear/PHP_CodeSniffer
+- phpenv rehash
+script:
+- phpcs --extensions=php -p --standard=PSR2 ./
