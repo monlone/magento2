@@ -54,7 +54,7 @@ class Library
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface
-    ){
+    ) {
         $this->loader();
         $this->_scopeConfig = $scopeConfigInterface;
     }

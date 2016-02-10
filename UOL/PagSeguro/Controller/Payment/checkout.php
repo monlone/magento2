@@ -33,7 +33,8 @@ use UOL\PagSeguro\Model\PaymentMethod;
  * Class Checkout
  * @package UOL\PagSeguro\Controller\Payment
  */
-class Checkout extends \Magento\Framework\App\Action\Action {
+class Checkout extends \Magento\Framework\App\Action\Action
+{
 
     /** @var  \Magento\Framework\View\Result\Page */
     protected $resultPageFactory;
@@ -41,7 +42,7 @@ class Checkout extends \Magento\Framework\App\Action\Action {
     /**
      * @var \UOL\PagSeguro\Model\PaymentMethod
      */
-    protected $_payment;
+    protected $payment;
 
 
     /**
@@ -52,10 +53,10 @@ class Checkout extends \Magento\Framework\App\Action\Action {
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
-    ){
+    ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
-        $this->_payment = new PaymentMethod(
+        $this->payment = new PaymentMethod(
             $this->_objectManager->create('\Magento\Framework\App\Config\ScopeConfigInterface'),
             $this->_objectManager->create('\Magento\Checkout\Model\Session')
         );
@@ -67,11 +68,13 @@ class Checkout extends \Magento\Framework\App\Action\Action {
      */
     public function execute()
     {
-        $code = $this->_payment->createPaymentRequest();
+        $code = $this->payment->createPaymentRequest();
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getLayout()->getBlock('pagseguro.payment.checkout')->setCode($code);
         $resultPage->getLayout()->getBlock('pagseguro.payment.checkout')->setPaymentJs($this->getPagSeguroPaymentJs());
-        $resultPage->getLayout()->getBlock('pagseguro.payment.checkout')->setPaymentUrl($this->_payment->checkoutUrl($code, 'paymentService'));
+        $resultPage->getLayout()->getBlock('pagseguro.payment.checkout')->setPaymentUrl(
+            $this->payment->checkoutUrl($code, 'paymentService')
+        );
         return $resultPage;
     }
 
@@ -81,7 +84,7 @@ class Checkout extends \Magento\Framework\App\Action\Action {
      */
     private function getPagSeguroPaymentJs()
     {
-        if (\PagSeguroConfig::getEnvironment() == 'sandbox'){
+        if (\PagSeguroConfig::getEnvironment() == 'sandbox') {
             return \UOL\PagSeguro\Helper\Library::SANDBOX_JS;
         } else {
             return \UOL\PagSeguro\Helper\Library::STANDARD_JS;

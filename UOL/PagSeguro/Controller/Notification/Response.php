@@ -27,7 +27,8 @@ namespace UOL\PagSeguro\Controller\Notification;
  * Class Checkout
  * @package UOL\PagSeguro\Controller\Payment
  */
-class Response extends \Magento\Framework\App\Action\Action {
+class Response extends \Magento\Framework\App\Action\Action
+{
 
     /**
      * Response constructor.
@@ -35,7 +36,7 @@ class Response extends \Magento\Framework\App\Action\Action {
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context
-    ){
+    ) {
         parent::__construct($context);
     }
 

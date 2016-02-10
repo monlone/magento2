@@ -49,8 +49,7 @@ class PaymentMethod
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfigInterface,
         \Magento\Checkout\Model\Session $checkoutSession
-    )
-    {
+    ) {
         $this->_scopeConfig = $scopeConfigInterface;
         $this->_checkoutSession = $checkoutSession;
         $this->_library = new Library($scopeConfigInterface);

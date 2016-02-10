@@ -55,4 +55,3 @@ class Status implements ArrayInterface
         return $options;
     }
 }
-

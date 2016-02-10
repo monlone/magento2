@@ -23,18 +23,19 @@
 
 namespace UOL\PagSeguro\Controller\Payment;
 
-USE UOL\PagSeguro\Model\PaymentMethod;
+use UOL\PagSeguro\Model\PaymentMethod;
 
 /**
  * Class Checkout
  * @package UOL\PagSeguro\Controller\Payment
  */
-class Request extends \Magento\Framework\App\Action\Action {
+class Request extends \Magento\Framework\App\Action\Action
+{
 
     /**
      * @var \UOL\PagSeguro\Model\PaymentMethod
      */
-    private $_payment;
+    private $payment;
 
     /**
      * Request constructor.
@@ -42,9 +43,9 @@ class Request extends \Magento\Framework\App\Action\Action {
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context
-    ){
+    ) {
         parent::__construct($context);
-        $this->_payment = new PaymentMethod(
+        $this->payment = new PaymentMethod(
             $this->_objectManager->create('\Magento\Framework\App\Config\ScopeConfigInterface'),
             $this->_objectManager->create('\Magento\Checkout\Model\Session')
         );
@@ -56,6 +57,6 @@ class Request extends \Magento\Framework\App\Action\Action {
      */
     public function execute()
     {
-        return $this->resultRedirectFactory->create()->setPath($this->_payment->createPaymentRequest());
+        return $this->resultRedirectFactory->create()->setPath($this->payment->createPaymentRequest());
     }
 }

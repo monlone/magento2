@@ -46,9 +46,8 @@ class PaymentConfigProvider implements \Magento\Checkout\Model\ConfigProviderInt
      * PaymentConfigProvider constructor.
      * @param PaymentHelper $helper
      */
-    public function __construct(
-        PaymentHelper $helper
-    ){
+    public function __construct(PaymentHelper $helper)
+    {
         $this->method = $helper->getMethodInstance(self::PAYMENT_METHOD_PAGSEGURO_CODE);
     }
 

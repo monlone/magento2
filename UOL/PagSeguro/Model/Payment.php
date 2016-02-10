@@ -118,5 +118,4 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     {
         return $this->cart->getQuote()->getStore()->getUrl("pagseguro/payment/request/");
     }
-
 }

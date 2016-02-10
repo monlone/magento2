@@ -42,7 +42,7 @@ class InstallData implements InstallDataInterface
          * Prepare database for install
          */
         $setup->startSetup();
-        
+
         /**
          * PagSeguro Order Status
          */
@@ -79,7 +79,11 @@ class InstallData implements InstallDataInterface
          */
         $state[0]['is_default'] = 1;
         $setup->getConnection()
-            ->insertArray($setup->getTable('sales_order_status_state'), ['status', 'state', 'is_default', 'visible_on_front'], $state);
+            ->insertArray(
+                $setup->getTable('sales_order_status_state'),
+                ['status', 'state', 'is_default', 'visible_on_front'],
+                $state
+            );
         unset($data);
 
         /**

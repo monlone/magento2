@@ -23,8 +23,8 @@
 
 namespace UOL\PagSeguro\Model;
 
-USE UOL\PagSeguro\Helper\Data;
-USE \UOL\PagSeguro\Helper\Library;
+use UOL\PagSeguro\Helper\Data;
+use \UOL\PagSeguro\Helper\Library;
 
 class NotificationMethod
 {
@@ -53,7 +53,7 @@ class NotificationMethod
         \Magento\Checkout\Model\Session $session,
         \Magento\Sales\Api\OrderRepositoryInterface $order,
         \Magento\Sales\Api\Data\OrderStatusHistoryInterface $history
-    ){
+    ) {
         $this->library = new Library(
             $scopeConfigInterface,
             $session
@@ -89,7 +89,7 @@ class NotificationMethod
             $transaction->getStatus()->getValue()
         );
 
-        if (!$this->compareStatus($status,$order->getStatus())){
+        if (!$this->compareStatus($status, $order->getStatus())) {
             $history = array (
                 'status'=>$this->history->setStatus($status),
                 'comment'=>$this->history->setComment('PagSeguro Notification')
