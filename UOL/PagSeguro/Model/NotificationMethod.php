@@ -54,7 +54,7 @@ class NotificationMethod
         \Magento\Sales\Api\OrderRepositoryInterface $order,
         \Magento\Sales\Api\Data\OrderStatusHistoryInterface $history
     ){
-        $this->_library = new Library(
+        $this->library = new Library(
             $scopeConfigInterface,
             $session
         );
@@ -124,7 +124,7 @@ class NotificationMethod
     private function getTransaction($code)
     {
         return \PagSeguroNotificationService::checkTransaction(
-            $this->_library->getPagSeguroCredentials(),
+            $this->library->getPagSeguroCredentials(),
             $code
         );
     }
