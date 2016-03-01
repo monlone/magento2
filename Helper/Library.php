@@ -33,10 +33,6 @@ class Library
     /**
      *
      */
-    const LIBRARY_AUTOLOAD = BP.'/app/code/UOL/PagSeguro/vendor/autoload.php';
-    /**
-     *
-     */
     const STANDARD_JS = "https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js";
     /**
      *
@@ -87,7 +83,6 @@ class Library
      */
     private function loader()
     {
-        require_once(self::LIBRARY_AUTOLOAD);
         \PagSeguroLibrary::init();
     }
 }
