@@ -7,6 +7,5 @@ before_script:
 - pear install --alldeps pear/PHP_CodeSniffer
 - phpenv rehash
 script:
-- php -d error_reporting="E_ALL & ~E_WARNING"
 - phpcs --config-set show_warnings 0
 - phpcs --extensions=php -p --standard=PSR2 ./
