@@ -20,8 +20,7 @@
         },
         "autoload": {
           "files": [
-	    "registration.php",
-            "vendor/autoload.php"
+	    "registration.php"
           ],
           "psr-0": {
             "PagSeguroLibrary\\": "vendor/pagseguro/php/source/PagSeguroLibrary/"
