@@ -22,8 +22,8 @@
           "files": [
 	    "registration.php"
           ],
-          "psr-0": {
-            "PagSeguroLibrary\\": "vendor/pagseguro/php/source/PagSeguroLibrary/"
+          "psr-4": {
+            "UOL\\PagSeguro\\": ""
           }
         }
     }
