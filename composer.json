@@ -20,7 +20,7 @@
         },
         "autoload": {
           "files": [
-	    "registration.php"
+	    "registration.php",
             "vendor/autoload.php"
           ],
           "psr-0": {
