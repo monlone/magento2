@@ -24,6 +24,9 @@ Instalação
 
 Changelog
 ---------
+1.0.0
+- Nova release.
+
 0.0.2-alpha
 - Integração com API de notificação.
 - Configuração do Setup do módulo.
